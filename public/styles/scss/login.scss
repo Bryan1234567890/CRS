@@ -1,0 +1,125 @@
+.screen-container {
+  width: 100%;
+  height: 100vh;
+  display: block;
+  position: relative;
+  background: #f8f8f8;
+}
+
+// .login-page::before {
+//   content: "";
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   position: absolute;
+//   background-repeat: no-repeat;
+//   background-origin: content-box;
+//   background-attachment: fixed;
+//   background-position: center;
+//   background-size: 100% 100%;
+//   width: 100%;
+//   height: 100vh;
+//   opacity: 0.6;
+// }
+.login{
+  &-container{
+    gap: 50px;
+   
+  }
+  &-header{
+     & .header{
+      font-size: 30px;
+      font-weight: normal;
+      padding: 0;
+      margin: 0;
+     }
+  }
+
+  &-content{
+   
+  }
+
+  &-footer{
+    margin-top: 50px;
+  }
+  &-form{
+    gap: 50px;
+  }
+
+}
+
+.btn-login{
+  // margin-top: 20px;
+  width: 100%;
+}
+.login-logo {
+  width: 150px;
+}
+// .input-group{
+//   padding-bottom: 15px;
+// }
+.left-container{
+  width: 100%;
+  height: 100%;
+  background-color: #eee;
+  background-image: url('http://template.test/public/img/login-bg.png');
+  background-attachment:inherit ;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-origin:border-box;
+  // filter: brightness(50%);
+}
+.login-container {
+  width: 500px;
+  min-height: 100%;
+  background: #fff;
+
+  display: flex;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 50px;
+  padding-right: 50px;
+ 
+  h2 {
+    color: #777;
+    font-weight: 00;
+  }
+
+  & a {
+    color: rgb(0, 110, 255);
+    //        font-size: 14px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}
+
+.msg-result {
+  font-size: 13px;
+  color: #e30000;
+  //    opacity: 0;
+}
+
+.hide-show-pass {
+  position: absolute;
+  top: none;
+  bottom: 12px;
+  left: none;
+  right: 10px;
+  cursor: default;
+  color: blue;
+  transition: 0.2s;
+
+  &:hover {
+    color: blue;
+  }
+}

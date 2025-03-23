@@ -1,0 +1,119 @@
+$f-1: "DM Sans";
+$f-2: "sans-serif";
+$f-3: "Inter";
+$f-4: "Lato";
+$f-5: "Montserrat";
+$f-6: "Open Sans";
+$f-7: "Poppins";
+$f-8: "Roboto";
+$f-9: "Space Grotesk";
+$f-10: "Work Sans";
+
+$fs-xx-small: 9px;
+$fs-x-small: 10px;
+$fs-small: 13px;
+$fs-medium: 16px;
+$fs-large: 18px;
+$fs-x-large: 24px;
+$fs-xx-large: 32px;
+
+$roboto: "Roboto", sans-serif;
+$poppins: "Poppins", sans-serif;
+$lato: "Lato", sans-serif;
+$sans: "Open Sans", sans-serif;
+$caveat: "Caveat", cursive;
+
+$uppercase: uppercase;
+$lowecase: lowercase;
+$capitalize: capitalize;
+
+// // colors
+// $white: #fff;
+// $red: #dc3545;
+// $blue: #007bff;
+// $green: #28a745;
+// $yellow: #ffc107;
+
+// $indigo: #6610f2;
+// $purple: #6f42c1;
+// $pink: #e83e8c;
+
+// $orange: #fd7e14;
+// $teal: #20c997;
+// $cyan: #17a2b8;
+
+// $gray: #6c757d;
+// $dark-gray: #343a40;
+
+// // ===========
+// $c-main: $dark-gray;
+// $c-text: #495057;
+
+// // ==== web theme
+// $global-color-primary: #4a63fd;
+// $global-color-secondary: #c981ff;
+// $global-color-text: #2e2e2c;
+// $global-color-accent-green: #4ead60;
+// $global-color-purple: #774cbd;
+// $global-color-navy-blue: #00326d;
+// $global-color-dark-purple: #3050af;
+// $global-color-light-purple: #b4ccfa;
+// $global-color-oranged: #faa00c;
+// $global-color-gold: #fbbf00;
+// $global-color-yellow: #ffdb0c;
+// $global-color-light-yellow: #ffee47;
+// $global-color-coal: #161415;
+
+// //==
+
+// $red: #dc3545;
+$btn-ican: #17A274;
+$btn-primary: #0984e3;
+$btn-success: #34a834;
+$btn-info: #74b9ff;
+$btn-warning: #fdcb6e;
+$btn-danger: #e17055;
+$btn-dark: #2d3436;
+
+$sm: 15px;
+$field-color: #fafafa;
+$label-color: #2196f3;
+$muted-color: mix(#777, $field-color, 70%);
+$trans-time: 300ms;
+$width: 320px;
+
+$navy: #001f3f;
+$blue: #0074d9;
+$aqua: #7fdbff;
+$teal: #39cccc;
+$olive: #3d9970;
+$green: #17A274;
+$lime: #01ff70;
+$yellow: #ffdc00;
+$orange: #ff851b;
+$red: #ff4136;
+$fuchsia: #f012be;
+$purple: #b10dc9;
+$maroon: #85144b;
+$white: #ffffff;
+$grey: #aaaaaa;
+$silver: #dddddd;
+$black: #111111;
+
+$main: $navy;
+$accent: #eba330;
+
+$text: #3a3b3c;
+
+// modal
+
+$speed: 0.6s;
+$delay: ($speed * 0.5);
+$easing: cubic-bezier(0.55, 0, 0.1, 1);
+
+$badge-text-color: #ffffff;
+$badge-default-bg: #2c3e50;
+$badge-info-bg: #3498db;
+$badge-warning-bg: #f1c40f;
+$badge-danger-bg: #e74c3c;
+$badge-success-bg: #2ecc71;

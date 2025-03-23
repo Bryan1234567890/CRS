@@ -1,0 +1,1323 @@
+/* #subscription-modal {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .2);
+    z-index: 99;
+    display: none;
+}
+
+#subscription-modal .content {
+
+    width: 800px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#subscription-modal h6,
+#subscription-modal h5,
+#subscription-modal h4,
+#subscription-modal h3,
+#subscription-modal h2,
+#subscription-modal h1,
+#subscription-modal p {
+    margin: 0;
+}
+
+#subscription-modal .content h6 {
+    margin-bottom: 20px;
+}
+
+#subscription-modal .info {
+    padding: 12px;
+    background-color: rgb(234, 237, 241);
+    margin: 10px 0;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+#subscription-modal .info p.info-title {
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#subscription-modal .info .info-item {
+    display: flex;
+}
+
+
+#subscription-modal .info button {
+    align-self: flex-end;
+    background: #e95c5c;
+}
+
+
+#subscription-modal .info .info-item .info-key {
+    flex: 1;
+}
+
+#subscription-modal .info .info-item .info-value {
+    flex: 3;
+}
+
+#subscription-modal .subscription-foot {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#subscription-modal button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    background: #17A274;
+    color: white;
+    cursor: pointer;
+}
+
+#subscription-modal .subscription-sub-modal {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .2);
+    z-index: 99;
+    display: none;
+}
+
+#subscription-modal .subscription-sub-modal .subscription-sub-modal-content {
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+}
+
+#subscription-modal .subscription-sub-modal .subscription-sub-modal-content .confirm-btns {
+    display: flex;
+    margin-top: 50px;
+    gap: 5px;
+    align-self: flex-end;
+}
+
+.confirm-cancellation {
+    background: #e95c5c !important;
+}
+
+#cancel-cancellation {
+    background: #dfdfdf !important;
+    color: #2e2e2e !important;
+} */
+
+
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+.subscription-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
+.subscription-modal-close {
+  position: unset;
+}
+
+.subscription-modal *:not(.fa):not(.fas):not(.far) {
+  font-family: "Poppins", sans-serif;
+}
+
+.subscription-modal .fa, .subscription-modal .fas {
+  position: unset;
+}
+
+.subscription-modal h2 {
+  font-size: 26px;
+}
+
+.subscription-modal h3 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.subscription-modal h4 {
+  font-size: 18px;
+}
+
+.subscription-modal * {
+  color: #3e3e3e;
+  outline: none;
+}
+
+.subscription-modal p {
+  margin: 0;
+  line-height: 27px;
+}
+
+.subscription-modal button {
+  padding: 12px;
+  min-width: 80px;
+  border: none;
+  background-color: #fafafa;
+  color: #3e3e3e;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+  font-size: 14px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  border-radius: 2px;
+}
+
+.subscription-modal button:hover {
+  background-color: #e0e0e0;
+}
+
+.subscription-modal button:active {
+  background-color: #cacaca;
+}
+
+.subscription-modal button:disabled {
+  background-color: #cacaca;
+  pointer-events: none;
+}
+
+.subscription-modal button.primary {
+  background-color: #3498db;
+  color: #eeeeee;
+  border: none;
+}
+
+.subscription-modal button.primary:hover {
+  background-color: #104069;
+}
+
+.subscription-modal button.primary:active {
+  background-color: #082946;
+}
+
+.subscription-modal button.primary:disabled {
+  background-color: #4f677c;
+  pointer-events: none;
+}
+
+.subscription-modal select, .subscription-modal input {
+  padding: 12px;
+  padding-right: 24px;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  transition: 0.4s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.subscription-modal select:-moz-placeholder-shown, .subscription-modal input:-moz-placeholder-shown {
+  border-bottom: 1px solid #999999;
+}
+
+.subscription-modal select:placeholder-shown, .subscription-modal input:placeholder-shown {
+  border-bottom: 1px solid #999999;
+}
+
+.subscription-modal select::-moz-placeholder, .subscription-modal input::-moz-placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.subscription-modal select::placeholder, .subscription-modal input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.subscription-modal select::-webkit-outer-spin-button, .subscription-modal select::-webkit-inner-spin-button, .subscription-modal input::-webkit-outer-spin-button, .subscription-modal input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.subscription-modal select, .subscription-modal input[type=date]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+.subscription-modal i, .subscription-modal svg {
+  color: #555555;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.subscription-modal i:hover, .subscription-modal svg:hover {
+  color: #ff7575;
+}
+
+.subscription-modal i:active, .subscription-modal svg:active {
+  color: #ff2a2a;
+}
+
+.subscription-modal .select {
+  position: relative;
+}
+
+.subscription-modal .select i, .subscription-modal .select svg {
+  margin: 0;
+  height: -moz-fit-content;
+  height: fit-content;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-100%);
+  pointer-events: none;
+  right: 24px;
+}
+
+.subscription-modal .viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.subscription-modal .viewport.s1 .slides {
+  transform: translateX(0);
+}
+
+.subscription-modal .viewport.s2 .slides {
+  transform: translateX(-16.5%);
+}
+
+.subscription-modal .viewport.s3 .slides {
+  transform: translateX(-33.3%);
+}
+
+.subscription-modal .viewport.s4 .slides {
+  transform: translateX(-50%);
+}
+
+.subscription-modal .viewport.s5 .slides {
+  transform: translateX(-66.7%);
+}
+
+.subscription-modal .viewport.s6 .slides {
+  transform: translateX(-83.35%);
+}
+
+.subscription-modal .viewport .slides {
+  width: 600%;
+  display: flex;
+  transition: 0.8s;
+}
+
+.subscription-modal .viewport .slides .slide {
+  width: 16.7%;
+}
+
+.subscription-modal .hidden {
+  display: none !important;
+}
+
+.subscription-modal-inner {
+  background-color: #fafafa;
+  width: 90%;
+  max-width: 800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 5px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.16);
+}
+
+.subscription-modal-head {
+  width: 100%;
+  padding: 20px;
+  border-bottom: 1px solid #e9e9e9;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.subscription-modal-body {
+  width: 100%;
+  background-color: #f4f4f4;
+}
+
+.subscription-modal-footer {
+  width: 100%;
+  padding: 10px 16px;
+  border-top: 1px solid #e9e9e9;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.subscription-modal-footer #question-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.subscription-modal-footer #opt-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.subscription-modal-init {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.subscription-modal-init * {
+  margin: 0 0 10px;
+}
+
+.subscription-modal-init h3 {
+  color: #3498db;
+  font-weight: 500;
+}
+
+.subscription-modal-init select {
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.subscription-modal-track-order, .subscription-modal-track-membership {
+  padding: 20px 100px;
+}
+
+.subscription-modal-track-order .descriptor-searchfield, .subscription-modal-track-membership .descriptor-searchfield {
+  position: relative;
+  z-index: 1;
+}
+
+.subscription-modal-track-order .descriptor-searchfield p, .subscription-modal-track-membership .descriptor-searchfield p {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  font-style: italic;
+}
+
+.subscription-modal-track-order .descriptor-searchfield input, .subscription-modal-track-membership .descriptor-searchfield input {
+  font-weight: 400;
+}
+
+.subscription-modal-track-order.part2 p, .subscription-modal-track-membership.part2 p {
+  margin: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.subscription-modal-track-order.part2 .dual-input, .subscription-modal-track-membership.part2 .dual-input {
+  margin-top: 10px;
+}
+
+.subscription-modal-track-order.part2 .subscription-modal-txn-user-details, .subscription-modal-track-membership.part2 .subscription-modal-txn-user-details {
+  padding: 0;
+}
+
+.subscription-modal-track-order .divider, .subscription-modal-track-membership .divider {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  margin: 20px 0 0;
+  font-style: italic;
+  color: #6c6c6c;
+}
+
+.subscription-modal-track-order .divider::after, .subscription-modal-track-order .divider::before, .subscription-modal-track-membership .divider::after, .subscription-modal-track-membership .divider::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45%;
+  height: 1px;
+  background-color: #dbdbdb;
+}
+
+.subscription-modal-track-order .divider::before, .subscription-modal-track-membership .divider::before {
+  left: 0;
+}
+
+.subscription-modal-track-order .divider::after, .subscription-modal-track-membership .divider::after {
+  right: 0;
+}
+
+.subscription-modal-txn-user-details {
+  padding: 30px 0 0;
+}
+
+.subscription-modal-txn-user-details p {
+  font-size: 12px;
+  color: #3498db;
+  font-style: italic;
+  /* text-align: center; */
+  /* margin-bottom: 10px; */
+}
+
+.subscription-modal-txn-user-details input {
+  text-align: center;
+  font-weight: 400;
+}
+
+.subscription-modal-track-result {
+  height: 500px;
+  overflow-y: scroll;
+  padding: 20px;
+}
+
+.subscription-modal-track-result.proc-api .subscription-modal-track-result-head {
+  padding: 20px;
+}
+
+.subscription-modal-track-result-head {
+  background-color: #03132c;
+  padding: 40px 20px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.subscription-modal-track-result-head * {
+  color: #fafafa;
+}
+
+.subscription-modal-track-result-head p {
+  color: #1b6adf;
+  font-weight: 600;
+}
+
+.subscription-modal-track-result-head .ship_stat, .subscription-modal-track-result-head .ship_date, .subscription-modal-track-result-head .courier, .subscription-modal-track-result-head .tracking_no {
+  color: #ffb814;
+}
+
+.subscription-modal-track-result-head .track-result-skeleton {
+  height: 15px !important;
+  margin: 10px 0;
+}
+
+.subscription-modal-track-result-head .track-result-skeleton:first-child {
+  width: 100%;
+}
+
+.subscription-modal-track-result-head .track-result-skeleton:nth-child(2) {
+  width: 50%;
+}
+
+.subscription-modal-track-result .track-result-skeleton {
+  display: block;
+  width: 40%;
+  background-color: #274157;
+  background-image: linear-gradient(to left, rgba(236, 236, 236, 0), rgba(236, 236, 236, 0.1764705882), #a1a1a1, rgba(236, 236, 236, 0.1764705882), rgba(236, 236, 236, 0));
+  background-repeat: no-repeat;
+  height: 8px;
+  animation: loading-track 2s infinite;
+  margin: 5px 0;
+}
+@keyframes loading-track {
+  0% {
+    background-position: -800px;
+  }
+  100% {
+    background-position: 800px;
+  }
+}
+.subscription-modal-track-result-item {
+  margin-top: 50px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.subscription-modal-track-result-item .track-result-skeleton {
+  background-color: #ececec;
+  height: 12px;
+  background-image: linear-gradient(to left, #ececec, #bdbdbd, #ececec);
+}
+
+.subscription-modal-track-result-item .head {
+  background-color: #3e3e3e;
+  padding: 15px;
+}
+
+.subscription-modal-track-result-item .head * {
+  color: #fafafa;
+}
+
+.subscription-modal-track-result-item .item-info {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-bottom: 2px dotted rgba(0, 0, 0, 0.1);
+}
+
+.subscription-modal-track-result-item .item-info:hover {
+  background-color: #ececec;
+}
+
+.subscription-modal-track-result-item .item-info p {
+  font-size: 14px;
+}
+
+.subscription-modal-track-result-item .item-info-text-result {
+  font-weight: 500;
+}
+
+.subscription-modal-cancellation-request {
+  padding: 50px;
+  height: 350px;
+}
+
+.subscription-modal-cancellation-request .inner {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subscription-modal-cancellation-request .inner div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subscription-modal-cancellation-request .inner .track-result-skeleton {
+  display: block;
+  width: 80%;
+  background-color: #e7e7e7;
+  background-image: linear-gradient(to left, rgba(236, 236, 236, 0), rgba(236, 236, 236, 0.1764705882), #a1a1a1, rgba(236, 236, 236, 0.1764705882), rgba(236, 236, 236, 0));
+  background-repeat: no-repeat;
+  height: 8px !important;
+  animation: loading-track 2s infinite;
+  margin: 5px 0;
+}
+
+.subscription-modal-cancellation-request .inner .track-result-skeleton:last-child {
+  width: 40%;
+}
+
+@keyframes loading-track {
+  0% {
+    background-position: -800px;
+  }
+  100% {
+    background-position: 800px;
+  }
+}
+.subscription-modal-not-found {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  background-color: white;
+}
+
+.subscription-modal-not-found * {
+  margin: 20px 0;
+}
+
+.subscription-modal-not-found img {
+  width: 40%;
+  opacity: 0.2;
+  position: relative;
+  z-index: 1;
+}
+
+.subscription-modal-not-found h4 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.subscription-modal-final-opt {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.subscription-modal-final-opt.opt2, .subscription-modal-final-opt.opt3 {
+  padding: 20px 0 0;
+}
+
+.subscription-modal-final .cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 30px 0;
+}
+
+.subscription-modal-final .cards .card {
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 200px;
+  width: 250px;
+  text-align: center;
+  border-right: 1px solid #dbdbdb;
+  position: relative;
+}
+
+.subscription-modal-final .cards .card:last-child {
+  border-right: none;
+}
+
+.subscription-modal-final .cards .card * {
+  margin: 5px 0;
+}
+
+.subscription-modal-final .cards .card img {
+  width: 40px;
+}
+
+.subscription-modal-final .cards .card p {
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.subscription-modal-final .cards .card button {
+  width: 100%;
+  border: none;
+  background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%) !important;
+  padding: 15px 0;
+  border-radius: 5px;
+  transition: 0.2s;
+  color: #fafafa;
+  font-weight: 600;
+}
+
+.subscription-modal-final .cards .card button:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.subscription-modal-final .cards .card button:active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subscription-modal-multiple-txn {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+}
+
+.subscription-modal-multiple-txn-inner {
+  position: absolute;
+  min-width: 350px;
+  max-width: 550px;
+  width: 90%;
+  background-color: #fafafa;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.subscription-modal-multiple-txn-header {
+  background-color: #fafafa;
+  padding: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.subscription-modal-multiple-txn-header * {
+  color: #3e3e3e;
+  font-weight: 700;
+}
+
+.subscription-modal-multiple-txn-footer {
+  padding: 10px;
+  background-color: #dbdbdb;
+  display: flex;
+  justify-content: space-between;
+}
+
+.subscription-modal-multiple-txn-body {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-y: scroll;
+  height: 75vh;
+}
+
+.subscription-modal-multiple-txn-body .info {
+  padding: 20px;
+  display: flex;
+}
+
+.subscription-modal-multiple-txn-body .info p, .subscription-modal-multiple-txn-body .info i, .subscription-modal-multiple-txn-body .info svg {
+  color: #1b6adf;
+}
+
+.subscription-modal-multiple-txn-body .info i, .subscription-modal-multiple-txn-body .info svg {
+  padding: 6px 10px 6px 0;
+}
+
+.subscription-modal-multiple-txn-body .txn-card {
+  padding: 20px;
+  display: flex;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.subscription-modal-multiple-txn-body .txn-card:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.subscription-modal-multiple-txn-body .txn-card:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.subscription-modal-multiple-txn-body .txn-card:active .content {
+  transform: scale(0.97);
+}
+
+.subscription-modal-multiple-txn-body .txn-card .radio {
+  padding-right: 10px;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .radio i, .subscription-modal-multiple-txn-body .txn-card .radio svg {
+  color: #1b6adf;
+  font-size: 18px;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content {
+  background-color: #03132c;
+  padding: 15px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  transition: 0.2s ease-out;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .head .product-name, .subscription-modal-multiple-txn-body .txn-card .content .head .order-no {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffb814;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .head .product-name {
+  width: 75%;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .other-details {
+  max-height: 0;
+  transition: 0.4s ease-in-out;
+  overflow: hidden;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .other-details.show {
+  max-height: 400px;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .other-detail {
+  padding: 20px 0;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .other-detail:not(:last-child) {
+  border-bottom: 1px solid rgba(250, 250, 250, 0.1);
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .other-detail-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .other-detail-item p {
+  width: 50%;
+  line-height: normal;
+  font-weight: 200;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .other-detail-item p:last-child {
+  text-align: right;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content p {
+  color: #fafafa;
+  font-size: 14px;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .card-button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 5px;
+  margin-top: 10px;
+  background-color: transparent;
+  border: none;
+  color: #fafafa;
+  display: flex;
+  align-items: center;
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .card-button:hover {
+  background-color: rgba(250, 250, 250, 0.2);
+}
+
+.subscription-modal-multiple-txn-body .txn-card .content .card-button i, .subscription-modal-multiple-txn-body .txn-card .content .card-button svg {
+  margin: 0 10px;
+}
+
+.subscription-modal-descriptor-search {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+}
+
+.subscription-modal-descriptor-search-inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 90%;
+  max-width: 800px;
+  transform: translate(-50%, -50%);
+  background: #fafafa;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.16);
+  border-radius: 5px;
+}
+
+.subscription-modal-descriptor-search-header {
+  padding: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.subscription-modal-descriptor-search-header * {
+  color: #fafafa;
+}
+
+.subscription-modal-descriptor-search-body {
+  padding: 30px 50px;
+}
+
+.subscription-modal-descriptor-search-body > * {
+  margin: 50px 0;
+}
+
+.subscription-modal-descriptor-search-body h4 {
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+  margin-top: 0;
+}
+
+.subscription-modal-descriptor-search-body .descriptor-searchfield {
+  margin-bottom: 0;
+}
+
+.subscription-modal-descriptor-search-footer {
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.subscription-modal-descriptor-search-footer button {
+  margin-bottom: 25px;
+}
+
+.subscription-modal-alert {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+}
+
+.subscription-modal-alert-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 25px 25px 25px 50px;
+  width: 90%;
+  max-width: 450px;
+  min-height: 40%;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-left: 10px solid #ffb814;
+}
+
+.subscription-modal-alert-head {
+  display: flex;
+  align-items: center;
+}
+
+.subscription-modal-alert-head i, .subscription-modal-alert-head svg {
+  color: #ffb814;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.subscription-modal-alert-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.subscription-modal-alert-buttons * {
+  margin-left: 5px;
+}
+
+.subscription-modal-alert.subscription-modal-request-error .subscription-modal-alert-inner {
+  border-left: 10px solid #ff4626;
+}
+
+.subscription-modal-alert.subscription-modal-request-error i, .subscription-modal-alert.subscription-modal-request-error svg {
+  color: #ff4626;
+}
+
+.subscription-modal .descriptor-searchfield {
+  position: relative;
+}
+
+.subscription-modal .descriptor-searchfield * {
+  margin: 0;
+}
+
+.subscription-modal .descriptor-searchfield ul {
+  position: absolute;
+  list-style: none;
+  width: 100%;
+  border-bottom: 1px solid rgba(153, 153, 153, 0.6);
+  border-left: 1px solid #999999;
+  border-right: 1px solid #999999;
+  max-height: 200px;
+  overflow-y: scroll;
+  padding: 0;
+}
+
+.subscription-modal .descriptor-searchfield ul li {
+  background-color: #fafafa;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: 0.4s;
+  position: relative;
+}
+
+.subscription-modal .descriptor-searchfield ul li:hover {
+  background-color: #e0e0e0;
+}
+
+.subscription-modal .descriptor-searchfield ul li:active {
+  background-color: #cacaca;
+}
+
+.subscription-modal .descriptor-searchfield ul li.skeleton i, .subscription-modal .descriptor-searchfield ul li.skeleton svg {
+  color: #777777;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.subscription-modal .descriptor-searchfield ul li.skeleton span {
+  display: block;
+  width: 40%;
+  background-color: #ececec;
+  background-image: linear-gradient(to left, #ececec, #ececec, #cecece, #ececec, #ececec);
+  background-repeat: no-repeat;
+  height: 8px;
+  animation: loading 2s infinite;
+  margin: 5px 0;
+}
+@keyframes loading {
+  0% {
+    background-position: -200px;
+  }
+  100% {
+    background-position: 200px;
+  }
+}
+.subscription-modal .dual-input {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.subscription-modal .dual-input > input {
+  width: 48%;
+}
+
+.subscription-modal .dual-input .date-picker {
+  width: 48%;
+  position: relative;
+}
+
+.subscription-modal .dual-input .date-picker input:focus ~ span, .subscription-modal .dual-input .date-picker input:valid ~ span {
+  display: none;
+}
+
+.subscription-modal .dual-input .date-picker input:not([disabled]) ~ span {
+  background-color: #ffffff;
+}
+
+.subscription-modal .dual-input .date-picker span.placeholder {
+  transition: 0.4s;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f4f4;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+  min-width: 200px;
+  pointer-events: none;
+}
+
+.subscription-modal input:disabled {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.subscription-modal input:disabled::-moz-placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.subscription-modal input:disabled::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 600px) {
+  .subscription-modal-body-part {
+    padding: 20px;
+  }
+  .subscription-modal-final-opt .cards {
+    flex-direction: column;
+    padding: 0;
+  }
+  .subscription-modal-final-opt .cards .card {
+    height: 175px;
+    padding: 0;
+    border-right: none;
+  }
+  .subscription-modal-final-opt .cards .card:not(:last-child) {
+    border-bottom: 1px solid #dbdbdb;
+  }
+  .subscription-modal-footer #opt-buttons {
+    flex-direction: column;
+  }
+  .subscription-modal-footer #opt-buttons button:not(:last-child) {
+    margin-bottom: 5px;
+  }
+  .subscription-modal-footer #opt-buttons > div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.subscription-modal .issuer-icon {
+  width: 30px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 40%;
+}
+
+.subscription-modal .issuer-icon.other-issuer {
+  width: 70px;
+  left: 35%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+  
+  .loading-ring {
+    width: 60px;
+    height: 60px;
+    border: 8px solid #ddd;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .glowblue {
+    animation: glowblue 2s infinite;
+    color: #f8f8f8 !important;
+}
+
+.icon-button{
+  border: none !important;
+  background: none !important;
+  width: auto;
+  height: auto;
+  min-width: revert !important;
+  box-shadow: none !important;
+}
+
+.flex-div{
+  text-align: center;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-weight: 700;
+    display: flex
+;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.copyButton {
+  position: relative;
+  cursor: pointer;
+}
+
+.copyButton[data-tooltip]:after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -30px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.copyButton:not([data-tooltip]):after {
+  content: none;
+}
+
+@media (max-width: 500px) {
+  .slide3Text {
+      width: 100% !important;
+  }
+  .slide2Text{
+    margin-left: 20;
+    margin-right: 20;
+  }
+  .modal-content{
+    width: 80% !important;
+    text-align: center !important;
+    margin-bottom: 50px !important;
+    height: 430px !important;
+  }
+
+}
+
+#subscription-modal-start {
+  background-color: #fa8231 !important;
+  color: #f8f8f8 !important;
+}
+
+.loading-container {
+  margin: auto !important;
+  text-align: center !important;
+  width: 100% !important;
+  margin-top: 100px !important;
+  margin-left: 44% !important;
+}
+
+.success-text {
+  text-align: center !important;
+  font-weight: bold !important;
+  color: #5bd25b !important;
+  margin-bottom: 30px !important;
+  margin-top: 6px !important;
+}
+
+.success-icon {
+  color: #5bd25b !important;
+  font-size: 50px !important;
+  margin-bottom: 20px !important;
+}
+
+.centered-text {
+  text-align: center !important;
+  margin-bottom: 30px !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+}
+
+.action-buttons {
+  display: flex !important;
+  justify-content: center !important;
+  margin: auto !important;
+  text-align: center !important;
+  margin-bottom: 30px !important;
+}
+
+.action-buttons button {
+  margin-right: 20px !important;
+}
+
+.slide3Text {
+  width: 100% !important;
+}
+
+.modal-content {
+
+  text-align: center !important;
+  margin-bottom: 50px !important;
+  height: 430px !important;
+}

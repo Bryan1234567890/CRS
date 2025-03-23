@@ -1,0 +1,10 @@
+<?php
+
+class ican extends Controller{
+
+    function index($args = []){
+        // $this->model('Sample_Model');
+
+        $this->view('ican4consumers/index');
+    }
+}

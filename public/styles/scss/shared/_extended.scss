@@ -1,0 +1,65 @@
+.translate-center {
+ @extend %translate-center
+}
+
+%translate-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+%translate-center-vertical {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.translate-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+%auto-center {
+  margin: 0 auto;
+}
+
+%reset {
+  padding: 0;
+  margin: 0;
+  font-size: normal;
+}
+
+%success {
+  background-color: $green;
+  color: #fff;
+}
+
+%warning {
+  background-color: $green;
+  color: #fff;
+}
+
+%info {
+  background-color: $green;
+  color: #fff;
+}
+
+%primary {
+  background-color: $green;
+  color: #fff;
+}

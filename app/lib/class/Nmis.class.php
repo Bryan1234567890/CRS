@@ -8,6 +8,23 @@ class Nmis extends DatabaseObject
         $response = self::NMICurl($postData);
         $result = self::evaluateTransactionResponse(parseNmiResponse($response));
         return $result;
+    }
+
+    public static function get_subscription_transactions($request)
+    {
+        
+        if (!isset($_SESSION['subscriptionId']) && !isset($_SESSION['email'])) {
+            return ['error' => 'Missing required parameter', 'fields' => "Please provide a Subsciption Id [cid] or Email."];
+        }
+
+        $postData = [
+            'security_key'=> $_SESSION["merchant_secret_key"],
+            'report_type'=>'recurring',
+        ];
+
+        $response = self::NMICurl($postData, true);
+
+        return filterMappedSubscriptions(xmlToJson($response));
 
     }
 
@@ -28,12 +45,15 @@ class Nmis extends DatabaseObject
         }
     }
 
-    private static function NMICurl(array $postData)
+    private static function NMICurl(array $postData, $isTransact = false)
     {
+
+        $url = ($isTransact)?"https://secure.nmi.com/api/query.php":"https://secure.nmi.com/api/transact.php";
+
         $curl = curl_init();
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => 'https://secure.nmi.com/api/transact.php',
+            CURLOPT_URL => $url ,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POST => true,
             CURLOPT_HTTPHEADER => [

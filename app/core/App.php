@@ -10,7 +10,6 @@ class App
 	public function __construct()
 	{
 		$url = $this->parseUrl();
-
 		
 
 		if(empty($url))
@@ -52,6 +51,8 @@ class App
 		if(isset($_GET['url']))
 		{
 			return $url = explode('/',filter_var(rtrim($_GET['url'],'/'),FILTER_SANITIZE_URL));
+		} else {
+			return $url = ['home'];
 		}
 	
 	}
