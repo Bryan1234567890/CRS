@@ -6,6 +6,7 @@ class Nmis extends DatabaseObject
     public static function process(array $postData)
     {
         $response = self::NMICurl($postData);
+        exit(print_r($response));
         $result = self::evaluateTransactionResponse(parseNmiResponse($response));
         return $result;
     }

@@ -21,7 +21,7 @@ class Nmi extends Controller
                 break;
             case "cancel_subscription":
                 $request['recurring'] = 'delete_subscription';
-                $response = $this->auth_cancel_subscription($request);
+                $response = $this->nmi_cancel_subscription($request);
                 break;
             default:
                 Response::output("400", "Invalid action");
@@ -30,7 +30,7 @@ class Nmi extends Controller
         Response::output($response['response_code'], $response['message']);
      }
 
-     public function auth_cancel_subscription($request)
+     public function nmi_cancel_subscription($request)
      {
         $requiredFields = ['subscription_id', 'recurring'];
         $validation = validateParams($request, $requiredFields);

@@ -1,5 +1,5 @@
 <?php
-
+Session_start();
 class home extends Controller{
     public $request;
     public $activemenu;
@@ -25,10 +25,14 @@ class home extends Controller{
             return;
         }
 
+        
+
         $merchant = $data['merchant'];
         $customer = $data['client'];
         $subscriptions = [];
 
+        $_SESSION['gateway'] = $merchant['gateway'];
+        
         switch ($merchant['gateway'])
         {
             case 'nmi':
@@ -91,11 +95,21 @@ class home extends Controller{
 
     public function cancel_subscription()
     {
-        $model = $this->model('Subscription_Model');
-        $subscriptionId = $_SESSION['recent_subscriptionId'] = $this->request['subscriptionId'];
-        $result = $model->set_authnet_cancel_subscription($subscriptionId);
 
-        Response::JsonExit($result['code'], $result['data']);
+        if($_SESSION['gateway'] == 'nmi')
+        {
+            
+            $response = $this->nmi_cancel_subscription($this->request);
+
+        }
+        else
+        {
+            $model = $this->model('Subscription_Model');
+            $subscriptionId = $_SESSION['recent_subscriptionId'] = $this->request['subscriptionId'];
+            $result = $model->set_authnet_cancel_subscription($subscriptionId);
+        }
+
+        Response::output($result['code'], $result['data']);
     }
 
     public function refund_request()
@@ -104,4 +118,23 @@ class home extends Controller{
         $result = $model->set_authnet_refund_request();
         exit(print_r($result));
     }
+
+    public function nmi_cancel_subscription($request)
+     {
+        $request['subscription_id'] = $request['subscriptionId'];
+        $request['recurring'] = 'delete_subscription';
+
+        $requiredFields = ['subscription_id', 'recurring'];
+        $validation = validateParams($request, $requiredFields);
+
+        if (isset($validation['error'])) {
+            Response::output("400", $validation);
+        }
+
+        $response = Nmis::process($validation);
+        exit(print_r($response));
+        return $response;
+     }
+
+
 }
