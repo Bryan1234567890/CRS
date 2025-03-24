@@ -34,7 +34,7 @@ function validateParams(array $request, array $requiredFields)
         return ['error' => 'Missing merchant key', 'fields' => "merchant secret key"];
     }
 
-    $postData['security_key'] = $_SESSION['merchant_security_key'] ;
+    $postData['security_key'] = $_SESSION['merchant_secret_key'] ;
 
     return $postData;
 }
