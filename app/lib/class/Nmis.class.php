@@ -6,8 +6,9 @@ class Nmis extends DatabaseObject
     public static function process(array $postData)
     {
         $response = self::NMICurl($postData);
-        exit(print_r($response));
+        
         $result = self::evaluateTransactionResponse(parseNmiResponse($response));
+        
         return $result;
     }
 
@@ -31,10 +32,20 @@ class Nmis extends DatabaseObject
 
     private static function evaluateTransactionResponse($parsedResponse) 
     {
+        
         switch ($parsedResponse['response']) 
         {
             case '1':
-                return ['response_code' => 200, 'message' => 'Transaction Approved'];
+                return 
+                [
+                    'response_code' => '200', 
+                    'message' => 'Transaction Approved',
+                    'data' =>
+                    [
+                        'transactionid' => $parsedResponse['transactionid'],
+                        'message' =>'Transaction Approved',
+                    ]
+                ];
             case '2':
                 return ['response_code' => 402, 'message' => 'Transaction Declined'];
             case '3':

@@ -39,15 +39,17 @@ function validateParams(array $request, array $requiredFields)
     return $postData;
 }
 
-function xmlToJson($xmlString) {
+function xmlToJson($xmlString) 
+{
     $xml = simplexml_load_string($xmlString, "SimpleXMLElement", LIBXML_NOCDATA);
     $json = json_encode($xml);
     $array = json_decode($json, TRUE);
     return json_encode($array, JSON_PRETTY_PRINT);
 }
 
-function filterMappedSubscriptions($jsonString) {
-    if (!isset($_SESSION['email']) && !isset($_SESSION['subscriptionId'])) {
+function filterMappedSubscriptions($jsonString) 
+{
+    if (!isset($_SESSION['email']) && !isset($_SESSION['subscriptionId']) && !isset($_SESSION['first6']) && !isset($_SESSION['last4'])) {
         return [];
     }
 
@@ -59,18 +61,30 @@ function filterMappedSubscriptions($jsonString) {
     }
 
     foreach ($data['subscription'] as $subscription) {
-        $matchEmail = isset($_SESSION['email']) && isset($subscription['email']) && $_SESSION['email'] === $subscription['email'];
-        $matchSubId = isset($_SESSION['subscriptionId']) && isset($subscription['subscription_id']) && $_SESSION['subscriptionId'] === $subscription['subscription_id'];
+        $subscriptionId = $subscription['subscription_id'] ?? null;
+        $ccNumber = $subscription['cc_number'] ?? '';
+        $ccBin = $subscription['cc_bin'] ?? '';
+        $email = is_string($subscription['email'] ?? null) ? $subscription['email'] : null;
+        $ccLast4 = substr($ccNumber, -4);
 
-        if ($matchEmail || $matchSubId) {
-            $filtered[$subscription['subscription_id']] = [
+        $matchEmail = isset($_SESSION['email']) && $email && $_SESSION['email'] === $email;
+        $matchFirst6 = isset($_SESSION['first6']) && $_SESSION['first6'] === $ccBin;
+        $matchLast4 = isset($_SESSION['last4']) && $_SESSION['last4'] === $ccLast4;
+        $matchSubId = isset($_SESSION['subscriptionId']) && $subscriptionId && $_SESSION['subscriptionId'] === $subscriptionId;
+
+        if (($matchEmail && $matchFirst6 && $matchLast4) || $matchSubId) {
+            $filtered[$subscriptionId] = [
                 'subscription' => [
-                    'name' => $subscription['plan']['plan_name'],
+                    'name' => $subscription['plan']['plan_name'] ?? '',
                     'profile' => [
                         'paymentProfile' => [
                             'payment' => [
                                 'creditCard' => [
-                                    'cardNumber' => $subscription['cc_number'] ?? '****']]]],
+                                    'cardNumber' => $ccNumber ?: '****'
+                                ]
+                            ]
+                        ]
+                    ],
                     'amount' => $subscription['plan']['plan_amount'] ?? '0.00',
                     'paymentSchedule' => [
                         'interval' => [
@@ -84,7 +98,11 @@ function filterMappedSubscriptions($jsonString) {
         }
     }
 
+    $filtered['website_address'] = $_SESSION['merchant_name'] ?? null;
+
     return $filtered;
 }
+
+
 
 ?>
