@@ -5,6 +5,7 @@ class Response
 	public static function output($error_code, $message)
 	{
 		
+		$error_code = (string) $error_code;
 		
         if($error_code !== "200"){
             $response_code = -1;
@@ -12,13 +13,13 @@ class Response
         }else{
 			$array_response = ['response_code' => "200", 'message' => 'Success', 'data' => $message];
         }
-		
-       
+		// exit('her');
 		self::jsonExit($array_response);
 	}
 
 	protected static function err_messages($case_number, $message = '')
     {
+		$err_response = "";
 		switch ($case_number) {
 			case "400":
 				$err_response = 'Bad Request.';
