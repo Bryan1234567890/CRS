@@ -1,136 +1,100 @@
 <?php
 Session_start();
-class home extends Controller{
+
+class home extends Controller {
     public $request;
-    public $activemenu;
-    function __construct()
-    {
+    public $activemenu = 'home';
+
+    function __construct() {
         $this->request = $_REQUEST;
-        $this->activemenu = 'home';
-
     }
 
-    function index($args = []) 
-    { 
-        $this->view('home/index');   
+    function index($args = []) {
+        $this->view('home/index');
     }
 
-    public function getDetails()
-    {
+    public function getDetails() {
+        $model = $this->model('Subscription_Model');
+        $req = $this->request;
+
+        if (!isset($req['mid']) || (!isset($req['cid']) && !isset($req['email']) && !isset($req['last4']) && !isset($req['first6']))) {
+            Response::output("400", ["message" => "Missing required parameters."]);
+        }
+
+        $data = $model->getDetails($req);
+
+        if (!is_array($data) || empty($data['merchant'])) {
+            Response::output("504", ["message" => "Merchant not found"]);
+        }
+
+        $_SESSION['gateway'] = $data['merchant']['gateway'];
+        $gateway = $_SESSION['gateway'];
+
+        if ($gateway === 'nmi') {
+            $_SESSION = array_merge($_SESSION, [
+                "merchant_secret_key" => $data['merchant']['merchant_secret_key'],
+                "subscriptionId" => $req['cid'] ?? null,
+                "last4" => $req['last4'] ?? null,
+                "first6" => $req['first6'] ?? null,
+                "email" => $req['email'] ?? null,
+                "merchant_name" => $data['merchant']['website_address'] ?? null
+            ]);
+
+            $req["action"] = "get_transaction";
+            $data['subscriptions'] = $this->handleNmi($req);
+
+        } elseif ($gateway === 'authnet') {
+            $_SESSION["authnet_api_login_id"] = $data['merchant']['authnet_api_login_id'];
+            $_SESSION["authnet_transaction_key"] = $data['merchant']['authnet_transaction_key'];
+
+            $data['subscriptions'] = $model->get_authnet_subscription_details(
+                $_SESSION['authnet_api_login_id'],
+                $_SESSION['authnet_transaction_key'],
+                $req['cid']
+            );
+        }
+
+        Response::output("200", $data['subscriptions']);
+    }
+
+    public function cancel_subscription() {
         $model = $this->model('Subscription_Model');
 
-        if (!isset($this->request['mid']) ||  (!isset($this->request['cid']) && !isset($this->request['email']) && !isset($this->request['last4']) && !isset($this->request['first6'])))
-        {
-            
-            Response::output("400", ["message"=>"Missing required parameters."]);
-        }
-    
-        $data = $model->getDetails($this->request);
-        
-        if (!is_array($data) || empty($data['merchant'])) 
-        {   
-            Response::output("504", ["message"=>"Merchant not found"]);
-        }
-
-        $merchant = $data['merchant'];
-        $customer = $data['client'];
-        $subscriptions = [];
-
-        $_SESSION['gateway'] = $merchant['gateway'];
-      
-        switch ($merchant['gateway'])
-        {
-            case 'nmi':
-                $_SESSION["merchant_secret_key"] = $merchant['merchant_secret_key'];
-                $_SESSION['subscriptionId'] = $this->request['cid'] ?? null;
-                $_SESSION['last4'] = $this->request['last4'] ?? null;
-                $_SESSION['first6'] = $this->request['first6'] ?? null;
-                $_SESSION['email'] = $this->request['email'] ?? null;
-                $_SESSION['merchant_name'] = $merchant['website_address'] ?? NULL;
-
-                $this->request["action"] = "get_transaction";
-                $subscriptions = $this->process_nmi($this->request);
-               
-                break;
-            case 'authnet': 
-                $_SESSION["authnet_api_login_id"] = $merchant['authnet_api_login_id'];
-                $_SESSION["authnet_transaction_key"] = $merchant['authnet_transaction_key'];
-                
-                $subscriptions = $model->get_authnet_subscription_details(
-                    $merchant['authnet_api_login_id'], 
-                    $merchant['authnet_transaction_key'], 
-                    $this->request['cid']
-                );
-                break;
-            default:
-        }
-        
-        $data['subscriptions'] = $subscriptions;
-  
-        Response::output("200",$data['subscriptions']);
-    }
-
-    //NMI
-    public function process_nmi($request)
-    {
-        $response = [];
-
-        switch($request['action']){
-            case "refund":
-                $request['type'] = 'refund';
-                $response = $this->refund($request);
-                break;
-            case "cancel_subscription":
-                $request['recurring'] = 'delete_subscription';
-                $response = $this->auth_cancel_subscription($request);
-                break;
-            case "get_transaction":
-                $response = Nmis::get_subscription_transactions($request);
-                // print_r($subscriptions);
-                break;
-            default:
-                Response::output("400", "Invalid action");
-        }
-
-        // Response::output($response['response_code'], $response['message']);
-        return $response;
-
-    }
-
-
-    //Auth.net
-
-    public function cancel_subscription()
-    {
-
-        if($_SESSION['gateway'] == 'nmi')
-        {
-            $result = $this->nmi_cancel_subscription($this->request);
-            $result['data'] = isset($result['data']) ? $result['data'] : ($result['data'] ?? 'No data available');
-           
-        }
-        else
-        {
-            $model = $this->model('Subscription_Model');
+        if ($_SESSION['gateway'] === 'nmi') {
+            $result = $this->handleNmiCancel($this->request);
+        } else {
             $subscriptionId = $_SESSION['recent_subscriptionId'] = $this->request['subscriptionId'];
             $result = $model->set_authnet_cancel_subscription($subscriptionId);
         }
 
-        $code = $result['response_code'] ?? 500;
-        $data = $result['data'];
+        $code = (string) ($result['response_code'] ?? 500);
+        $data = $result['data'] ?? 'No data';
 
         Response::output($code, $data);
     }
 
-    public function refund_request()
-    {
+    public function refund_request() {
         $model = $this->model('Subscription_Model');
         $result = $model->set_authnet_refund_request();
         exit(print_r($result));
     }
 
-    public function nmi_cancel_subscription($request)
-     {
+    private function handleNmi($request) {
+        switch ($request['action']) {
+            case "refund":
+                $request['type'] = 'refund';
+                return $this->refund($request);
+            case "cancel_subscription":
+                $request['recurring'] = 'delete_subscription';
+                return $this->auth_cancel_subscription($request);
+            case "get_transaction":
+                return Nmis::get_subscription_transactions($request);
+            default:
+                Response::output("400", "Invalid action");
+        }
+    }
+
+    private function handleNmiCancel($request) {
         $request['subscription_id'] = $request['subscriptionId'];
         $request['recurring'] = 'delete_subscription';
 
@@ -141,9 +105,6 @@ class home extends Controller{
             Response::output("400", $validation);
         }
 
-        $response = Nmis::process($validation);
-        return $response;
-     }
-
-
+        return Nmis::process($validation);
+    }
 }

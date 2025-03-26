@@ -78,7 +78,7 @@
                     <br><br><br><br>
 
                     <div class="flex-center flex">
-                        <img src="../../../../public/img/megap.png" alt="faq megap" class="megap-img" width="50px">
+                        <img src="<?=URL?>/public/img/megap.png" alt="faq megap" class="megap-img" width="50px">
                     </div>
                 </div>
                 <div class="col-lg-6 faq-scroll-box">
